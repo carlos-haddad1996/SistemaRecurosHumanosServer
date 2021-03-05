@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const app = express();
+const port = 4000;
 
 //IMPORTAR VARIABLES DE ENTORNO
 dotenv.config();
@@ -25,7 +26,7 @@ const connection = mysql.createConnection({
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    port: process.env.PORT,
+    port: process.env.SQLPORT,
 });
 
 connection.connect((err) => {
@@ -181,6 +182,6 @@ app.get('/aplicante', (req, res) => {
     );
 });
 
-app.listen(4000, () => {
+app.listen(port, () => {
     console.log('Server is running');
 });
