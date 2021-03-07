@@ -14,7 +14,7 @@ const SELECT_ALL_APPLICANTS_QUERY = 'SELECT * FROM aplicante';
 const SELECT_APPLICANTS_BY_SCORE =
     'SELECT apl.id, apl.nombre, vac.nombre AS vacante, aple.puntuacion FROM aplicante AS apl INNER JOIN aplicantes_por_evaluacion AS aple ON apl.id = aple.aplicante_id INNER JOIN aplicantes_por_vacante AS aplv ON apl.id = aplv.vacante_id INNER JOIN vacante AS vac ON aplv.vacante_id = vac.id;';
 const SELECT_VACANCIES =
-    'SELECT id, nombre, descripcion, totalvacantes, ciudad FROM vacante';
+    'SELECT id, nombre, descripcion, departamento, totalvacantes, ciudad FROM vacante';
 const SELECT_VACANCIES_BY_AMOUNT =
     "SELECT vacante.nombre AS 'Nombre de vacante', SUM(totalvacantes) AS 'Vacantes disponibles' FROM vacante GROUP BY vacante.nombre ORDER BY 'Vacantes disponibles'";
 const SELECT_VACANCIES_BY_CITY =
