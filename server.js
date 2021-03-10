@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const multer = require('multer');
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -19,6 +20,7 @@ const SELECT_VACANCIES_BY_AMOUNT =
     "SELECT vacante.nombre AS 'Nombre de vacante', SUM(totalvacantes) AS 'Vacantes disponibles' FROM vacante GROUP BY vacante.nombre ORDER BY 'Vacantes disponibles'";
 const SELECT_VACANCIES_BY_CITY =
     "SELECT vacante.nombre AS 'Nombre de vacante', vacante.ciudad AS 'Ciudad', SUM(totalvacantes) AS 'Vacantes disponibles' FROM vacante GROUP BY vacante.nombre, vacante.ciudad ORDER BY 'Nombre de vacante'";
+const SELECT_ALL_PREGUNTAS_QUERY = 'SELECT * FROM pregunta;';
 
 const mysql = require('mysql');
 const connection = mysql.createConnection({
@@ -180,6 +182,18 @@ app.get('/aplicante', (req, res) => {
             else console.log(err);
         }
     );
+});
+
+app.get('/pregunta', (req, res) => {
+    connection.query(SELECT_ALL_PREGUNTAS_QUERY, (err, results) => {
+        if (err) {
+            return res.send(err);
+        } else {
+            return res.json({
+                preguntas: results,
+            });
+        }
+    });
 });
 
 app.listen(port, () => {
