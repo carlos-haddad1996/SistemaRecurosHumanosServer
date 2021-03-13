@@ -103,10 +103,8 @@ app.get('/vacantes/add', (req, res) => {
             departamento,
             totalVacantes,
             ciudad,
-            id,
-            admin,
         } = req.query;
-        const INSERT_VACANTES_QUERY = `INSERT INTO vacante (nombre,descripcion,departamento,totalvacantes,ciudad,evaluacion_id,administrador_usuario) VALUES ('${nombre}', '${descripcion}', '${departamento}', '${totalVacantes}', '${ciudad}', '${id}', '${admin}')`;
+        const INSERT_VACANTES_QUERY = `INSERT INTO vacante (nombre,descripcion,departamento,totalvacantes,ciudad) VALUES ('${nombre}', '${descripcion}', '${departamento}', '${totalVacantes}', '${ciudad}')`;
         connection.query(INSERT_VACANTES_QUERY, (err, result) => {
             if (err) {
                 return res.send(err);
