@@ -13,7 +13,7 @@ dotenv.config();
 const SELECT_ALL_USERS_QUERY = 'SELECT * FROM administrador';
 const SELECT_ALL_APPLICANTS_QUERY = 'SELECT * FROM aplicante';
 const SELECT_APPLICANTS_BY_SCORE =
-    'SELECT apl.id, apl.nombre, vac.nombre AS vacante, aple.puntuacion FROM aplicante AS apl INNER JOIN aplicantes_por_evaluacion AS aple ON apl.id = aple.aplicante_id INNER JOIN aplicantes_por_vacante AS aplv ON apl.id = aplv.vacante_id INNER JOIN vacante AS vac ON aplv.vacante_id = vac.id;';
+    'SELECT APL.id, APL.nombre, APL.tel, APL.puntuacion, V.nombre AS vacante, APL.URL, APB.visto  FROM aplicantes_por_vacante APB JOIN vacante V ON APB.vacante_id = V.id JOIN aplicante APL ON APB.aplicante_id = APL.id';
 const SELECT_VACANCIES =
     'SELECT id, nombre, descripcion, departamento, totalvacantes, ciudad FROM vacante';
 const SELECT_VACANCIES_BY_AMOUNT =
