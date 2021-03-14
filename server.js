@@ -52,8 +52,20 @@ app.get('/users', (req, res) => {
             return res.send(err);
         } else {
             return res.json({
-                data: results,
+                users: results,
             });
+        }
+    });
+});
+
+app.get('/users/add-session', (req, res) => {
+    const { usuario, session } = req.query;
+    const UPDATE_USER_SESSION = `UPDATE administrador SET sesion = ${session} WHERE usuario = '${usuario}'`;
+    connection.query(UPDATE_USER_SESSION, (err, results) => {
+        if (err) {
+            return res.send(err);
+        } else {
+            return res.send('session updated');
         }
     });
 });
