@@ -83,6 +83,32 @@ app.get('/users/add', (req, res) => {
     });
 });
 
+app.get('/aplicante', (req, res) => {
+    const { nombre } = req.query;
+    const SELECT_APLICANTE = `SELECT id FROM aplicante WHERE nombre = "${nombre}"`;
+    connection.query(SELECT_APLICANTE, (err, results) => {
+        if (err) {
+            return res.send(err);
+        } else {
+            return res.json({
+                aplicante: results,
+            });
+        }
+    });
+});
+
+app.get('/aplicante/add-evaluacion', (req, res) => {
+    const { aplicanteId, vacanteId } = req.query;
+    const AGREGAR_APLICANTE = `INSERT INTO aplicantes_por_vacante (aplicante_id, vacante_id) VALUES (${aplicanteId}, ${vacanteId});`;
+    connection.query(AGREGAR_APLICANTE, (err, results) => {
+        if (err) {
+            return res.send(err);
+        } else {
+            return res.send('succesfully added user');
+        }
+    });
+});
+
 app.get('/aplicantes', (req, res) => {
     connection.query(SELECT_ALL_APPLICANTS_QUERY, (err, results) => {
         if (err) {
@@ -91,6 +117,34 @@ app.get('/aplicantes', (req, res) => {
             return res.json({
                 data: results,
             });
+        }
+    });
+});
+
+app.get('/aplicantes/add', (req, res) => {
+    const { nombre, telefono } = req.query;
+    const AGREGAR_APLICANT = `INSERT INTO aplicante (nombre, tel) VALUES ('${nombre}', '${telefono}')`;
+    connection.query(AGREGAR_APLICANT, (err, results) => {
+        if (err) {
+            return res.send(err);
+        } else {
+            return res.send('succesfully added user');
+        }
+    });
+});
+
+app.get('/aplicantes/add-puntuacion', (req, res) => {
+    const { nombre, puntuacion, url } = req.query;
+    const AGREGAR_PUNTUACION = `UPDATE aplicante 
+                                    SET puntuacion = ${puntuacion}, 
+                                        URL = ${url.toString()} 
+                                WHERE nombre = '${nombre}'
+                                `;
+    connection.query(AGREGAR_PUNTUACION, (err, results) => {
+        if (err) {
+            return res.send(err);
+        } else {
+            return res.send('succesfully added puntuacion');
         }
     });
 });
